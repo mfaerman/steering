@@ -1,0 +1,116 @@
+# Generated automatically from Makefile.in by configure.
+# Makefile for simsteer.
+
+#### Start of system configuration section. ####
+
+srcdir = $(VPATH)
+
+CC = gcc
+CXX = g++ 
+#CC = g++
+
+
+SIMGRID_INCLUDE =  -I/home/mfaerman/simgrid/include/
+SIMGRID_LIB =  /home/mfaerman/simgrid/lib/libsimgrid.a
+
+APPLESEEDS_INCLUDE = -I/home/mfaerman/AppleSeeds-2.1/install/include/
+APPLESEEDS_LIB = /home/mfaerman/AppleSeeds-2.1/install/lib/libappleseeds.a
+
+GLOBUS_LDFLAGS = 
+GLOBUS_INCLUDE = 
+GLOBUS_LIBS = 
+
+MYSQL_INCLUDE = 
+MYSQL_LDFLAGS = 
+LIBZ_LDFLAGS = -L/usr/lib
+
+VI_INCLUDE = 
+
+VI_LIBVIINTERFACE       = 
+VI_LIBVIMANAGER         = 
+VI_LIBPROJECT           = 
+VI_LIBVIRESOURCEMANAGER = 
+VI_LIBPARAMETERS        = 
+VI_LIBVIDB              = 
+VI_LIBACTUATOR          = 
+VI_LIBPLAN              = 
+VI_LIBVICORE            = 
+VI_LIBVIMISC            = 
+VI_LIBEXTERNAL          = 
+
+VI_LIB = $(VI_LIBVIINTERFACE) \
+         $(VI_LIBVIMANAGER) \
+         $(VI_LIBPROJECT) \
+         $(VI_LIBVIRESOURCEMANAGER) \
+         $(VI_LIBPARAMETERS) \
+         $(VI_LIBVIDB) \
+         $(VI_LIBPROJECT) \
+         $(VI_LIBACTUATOR) \
+         $(VI_LIBPLAN) \
+         $(VI_LIBVICORE) \
+         $(VI_LIBVIMISC) \
+         $(VI_LIBEXTERNAL) 
+
+
+#DEFS = -DHAVE_CONFIG_H
+LIBS =  $(SIMGRID_LIB) $(VI_LIB) $(APPLESEEDS_LIB) $(GLOBUS_LIBS)
+
+CFLAGS = -g $(SIMGRID_INCLUDE) $(APPLESEEDS_INCLUDE) $(VI_INCLUDE) $(GLOBUS_INCLUDE) $(MYSQL_INCLUDE)
+LDFLAGS = $(CFLAGS) $(GLOBUS_LDFLAGS) $(MYSQL_LDFLAGS) $(LIBZ_LDFLAGS)
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+
+SRCS = main_obj.cc parameters.cc tree_ptasks.cc tasks.cc cost_fnc.cc grid.cc array.cc simulation.cc node_generator.cc simple_generator_group.cc priority_tree_generator_group.cc initial_generator_group.cc ran4.c ran4_random_generator.cc c_random_generator.cc random_gen_creator.cc priority_queue.cc priority_queue_simulation.cc flow_control.cc  node_gen_creator.cc simulation_creator.cc partition.cc graph.cc unbalanced_neighborhood.cc half_balanced_neighborhood.cc shuffle.cc partition_local_search.cc vidcommunicator.cc helper.cc bin_task.cc order_task.cc task_creator.cc search.cc meta_task.cc meta_task_limit.cc suspend_queue.cc grid_limited.cc grid_limited_mapping.cc simulation_limited.cc grid_creator.cc meta_task_limit_random.cc queue_creator.cc random_queue.cc simulation_limited_random.cc
+
+OBJS = main_obj.o parameters.o tree_ptasks.o tasks.o cost_fnc.o grid.o array.o simulation.o node_generator.o simple_generator_group.o  priority_tree_generator_group.o initial_generator_group.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o  priority_queue.o priority_queue_simulation.o flow_control.o node_gen_creator.o simulation_creator.o partition.o graph.o unbalanced_neighborhood.o  half_balanced_neighborhood.o shuffle.o  partition_local_search.o vidcommunicator.o helper.o bin_task.o order_task.o task_creator.o search.o meta_task.o meta_task_limit.o suspend_queue.o grid_limited.o grid_limited_mapping.o simulation_limited.o grid_creator.o meta_task_limit_random.o queue_creator.o random_queue.o simulation_limited_random.o
+
+all: simsteer
+.PHONY: all
+
+test_partition.o.cc:
+	$(CXX) -c $(CFLAGS) $(CPPFLAGS) $(DEFS) $<
+
+test_rand_gen.o.cc:
+	$(CXX) -c $(CFLAGS) $(CPPFLAGS) $(DEFS) $<
+
+.cc.o:
+	$(CXX) -c $(CFLAGS) $(CPPFLAGS) $(DEFS) $< 
+
+simsteer: $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+
+testrand: test_rand_gen.o parameters.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o test_rand_gen.o 
+	$(CXX) $(LDFLAGS) -o $@ $ parameters.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o test_rand_gen.o $(LIBS)
+
+test_partition: test_partition.o unbalanced_neighborhood.o partition.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o parameters.o graph.o shuffle.o partition_local_search.o helper.o bin_task.o grid.o priority_queue.o tasks.o tree_ptasks.o half_balanced_neighborhood.o
+	$(CXX) $(LDFLAGS) -o $@ $ test_partition.o unbalanced_neighborhood.o partition.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o parameters.o graph.o shuffle.o partition_local_search.o helper.o bin_task.o grid.o priority_queue.o tasks.o  tree_ptasks.o half_balanced_neighborhood.o $(LIBS)
+
+ea: unbalanced_neighborhood.o  half_balanced_neighborhood.o partition.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o parameters.o graph.o shuffle.o partition_local_search.o helper.o bin_task.o grid.o priority_queue.o tasks.o tree_ptasks.o steady_state_ea_ls.o simulation.o flow_control.o node_gen_creator.o simple_generator_group.o priority_tree_generator_group.o initial_generator_group.o array.o node_generator.o simulation_creator.o priority_queue_simulation.o  cost_fnc.o task_creator.o order_task.o search.o
+	$(CXX) $(LDFLAGS) -o $@ $ unbalanced_neighborhood.o  half_balanced_neighborhood.o partition.o ran4.o ran4_random_generator.o c_random_generator.o random_gen_creator.o parameters.o graph.o shuffle.o partition_local_search.o helper.o bin_task.o grid.o priority_queue.o tasks.o tree_ptasks.o steady_state_ea_ls.o simulation.o flow_control.o  node_gen_creator.o simple_generator_group.o priority_tree_generator_group.o initial_generator_group.o array.o node_generator.o simulation_creator.o priority_queue_simulation.o  cost_fnc.o task_creator.o order_task.o search.o $(LIBS)
+
+
+.PHONY: check
+
+Makefile: Makefile.in config.status
+	$(SHELL) config.status
+
+config.status: configure
+	$(srcdir)/configure --no-create
+
+TAGS: $(SRCS)
+	etags $(SRCS)
+
+.PHONY: clean mostlyclean distclean realclean dist
+
+clean:
+	rm -f simsteer *.o core
+
+mostlyclean: clean
+
+distclean: clean
+	rm -f Makefile config.status
+
+# Prevent GNU make v3 from overflowing arg limit on SysV.
+.NOEXPORT:
